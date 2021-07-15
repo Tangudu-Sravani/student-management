@@ -1,11 +1,10 @@
-// Student Management system using file handling in c++
 #include <conio.h>///header file
 #include<bits/stdc++.h>//header file
 using namespace std;
 class student//class and class name
 {
 private://private data
-    string stdName, Roll, branch, address, email_id, contact_no;//intialising
+    string stdName, Roll, branch , section , mark, address, email_id, contact_no;//intialising
 
 public://public data
     void List();//member functions
@@ -45,7 +44,7 @@ Liststart:
             insert();
             cout << "\n\t\t\t Add Another Student Record (Y,N): ";
             cin >> x;
-        } while (x == 'y' || x == 'Y');
+        } while (x == 'y' || x == 'Y');//if y satisfies means yes or any other then these means no
         break;
     case 2:
         display();
@@ -79,16 +78,22 @@ void student::insert() // add student details//herachical inheritance//function 
     cin >> Roll;
     cout << "\t\t\tEnter branch: ";
     cin >> branch;
+    cout << "\t\t\tEnter section: ";
+    cin >> section;
+	cout << "\t\t\tEnter previous marks out of 500: ";
+    cin >> mark;
     cout << "\t\t\tEnter Email Id: ";
     cin >> email_id;
     cout << "\t\t\tEnter Contact No: ";
     cin >> contact_no;
     cout << "\t\t\tEnter Address: ";
     cin >> address;
-    file.open("studentRecord.txt", ios::app | ios::out);//file open
-    file << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";
+    file.open("studentRecord14.txt", ios::app | ios::out);//file open
+    file << " " << stdName << " " << Roll << " " << branch <<" "<< section <<" "<< mark << " " << email_id << " " << contact_no << " " << address << "\n";
     file.close();//file close
+    
 }
+
 
 void student::display() // display students details//function declaration
 {
@@ -96,26 +101,28 @@ void student::display() // display students details//function declaration
     fstream file;
     int total = 1;//inialising the data
     cout << "------------------------------------- Student Record Table --------------------------------------------" << endl;
-    file.open("studentRecord.txt", ios::in);//file open
+    file.open("studentRecord14.txt", ios::in);//file open
     if (!file)
     {
-        /* code */
         cout << "\n\t\t\tNo Data Is Present...";
         file.close();
     }
-    else
+    else 
     {
-        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
-        while (!file.eof())
+    	file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
+    	while (!file.eof())
         {
             cout << "\n\n\t\t\t Student No.: " << total++ << endl;
             cout << "\t\t\t Student Name: " << stdName << endl;
             cout << "\t\t\t Student Roll No.: " << Roll << endl;
             cout << "\t\t\t Student branch: " << branch << endl;
+            cout << "\t\t\t Student section: " << section << endl;
+            cout << "\t\t\t Student previous scored marks out of 500: " << mark << endl;
             cout << "\t\t\t Student Email Id.: " << email_id << endl;
             cout << "\t\t\t Student Contact No.: " << contact_no << endl;
             cout << "\t\t\t Student Address: " << address << endl;
-            file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+         
+		    file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
         }
         if (total == 0)
         {
@@ -124,6 +131,7 @@ void student::display() // display students details//function declaration
     }
     file.close();
 }
+
 void student::update() // update Students Details//function declaration
 {
     system("cls");
@@ -131,7 +139,7 @@ void student::update() // update Students Details//function declaration
     string rollno;
     int found = 0;
     cout << "\t\t---------------- Student update Details ----------------------" << endl;
-    file.open("studentRecord.txt", ios::in);
+    file.open("studentRecord14.txt", ios::in);
     if (!file)
     {
         cout << "\n\t\t\tNo data is stored..";//as all files are deleted
@@ -140,13 +148,13 @@ void student::update() // update Students Details//function declaration
     {
         cout << "\nEnter Roll No. of Student which you want to update: ";
         cin >> rollno;
-        file1.open("record.txt", ios::app | ios::out);
-        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;//file takes input
+        file1.open("Record14.txt", ios::app | ios::out);
+        file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;//file takes input
         while (!file.eof())
         {
             if (rollno != Roll)
 
-                file1 << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";//file gives output
+                file1 << " " << stdName << " " << Roll << " " << branch << " " << section <<" "<< mark << " "<< email_id << " " << contact_no << " " << address << "\n";//file gives output
             else
             {
                 cout << "\n\t\t\tEnter Name: ";
@@ -155,25 +163,29 @@ void student::update() // update Students Details//function declaration
                 cin >> Roll;
                 cout << "\t\t\tEnter branch: ";
                 cin >> branch;
+                cout << "\t\t\tEnter section: ";
+                cin >> section;
+	            cout << "\t\t\tEnter previous marks out of 500: ";
+                cin >> mark;
                 cout << "\t\t\tEnter Email Id: ";
                 cin >> email_id;
                 cout << "\t\t\tEnter Contact No.: ";
                 cin >> contact_no;
                 cout << "\t\t\tEnter Address: ";
                 cin >> address;
-                file1 << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";
+                file1 << " " << stdName << " " << Roll << " " << branch << " " << section<<" "<< mark <<" "<< email_id << " " << contact_no << " " << address << "\n";
                 found++;
             }
-            file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+            file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
             if (found == 0)
             {
                 cout << "\n\n\t\t\t Student Roll No. Not Found....";
             }
-        }
+            }
         file1.close();//file close
         file.close();//file1 closse
-        remove("studentRecord.txt");//removing the file
-        rename("record.txt", "studentRecord.txt");//renaming the file
+        remove("studentRecord14.txt");//removing the file
+        rename("Record14.txt", "studentRecord14.txt");//renaming the file
     }
 }
 void student::getData() // getData data of student//function declaration
@@ -181,7 +193,7 @@ void student::getData() // getData data of student//function declaration
     system("cls");
     fstream file;
     int found = 0;
-    file.open("studentRecord.txt", ios::in);//file open
+    file.open("studentRecord14.txt", ios::in);//file open
     if (!file)
     {
         cout << "------------------------------------- Student getData Data ------------------------------------------" << endl;
@@ -193,22 +205,25 @@ void student::getData() // getData data of student//function declaration
         cout << "------------------------------------- Student getData Data ------------------------------------------" << endl;
         cout << "\n Enter Roll No. of Student Which You Want to getData: ";
         cin >> rollno;
-        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+        file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
         while (!file.eof())
         {
-            if (rollno == Roll)
+        	if (rollno == Roll)
             {
                 cout << "\n\t\t\t Student Name: " << stdName << endl;
                 cout << "\t\t\t Student Roll No.: " << Roll << endl;
                 cout << "\t\t\t Student branch: " << branch << endl;
+                cout << "\t\t\t Student section: " << section << endl;
+                cout << "\t\t\t Student previous scored marks out of 500: " << mark << endl;
                 cout << "\t\t\t Student Email Id.: " << email_id << endl;
+                cout << "\t\t\t Student contact.: " << contact_no << endl;
                 cout << "\t\t\t Student Address: " << address << endl;
                 found++;
             }
-            file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+            file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
         }
         if (found == 0)
-        {
+    	{
             cout << "\n\t\t\tStudent Roll No. Not Found...";
         }
         file.close();
@@ -220,9 +235,8 @@ void student::deleted()//function declaration
     fstream file, file1;
     int found = 0;
     string roll;
-    cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
     cout << "------------------------------------- Delete Student Details ------------------------------------------" << endl;
-    file.open("studentRecord.txt", ios::in);
+    file.open("studentRecord14.txt", ios::in);
     if (!file)
     {
         cout << "\n\t\t\tNo Data is Present..";
@@ -232,20 +246,20 @@ void student::deleted()//function declaration
     {
         cout << "\nEnter Roll No. of Student which you want Delete Data: ";
         cin >> roll;
-        file1.open("record.txt", ios::app | ios::out);
-        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+        file1.open("Record14.txt", ios::app | ios::out);
+        file >> stdName >> Roll >> branch >> section >> mark >> email_id >> contact_no >> address;
         while (!file.eof())
         {
             if (roll != Roll)
             {
-                file1 << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";
+                file1 << " " << stdName << " " << Roll << " " << branch <<" "<< section << " " << mark <<" "<< email_id << " " << contact_no << " " << address << "\n";
             }
             else
             {
                 found++;
                 cout << "\n\t\t\tSuccessfully Delete Data";
             }
-            file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+            file >> stdName >> Roll >> branch >> section >> mark>> email_id >> contact_no >> address;
         }
         if (found == 0)
         {
@@ -253,8 +267,8 @@ void student::deleted()//function declaration
         }
         file1.close();
         file.close();
-        remove("studentRecord.txt");
-        rename("record.txt", "studentRecord.txt");
+        remove("studentRecord14.txt");
+        rename("Record14.txt", "studentRecord14.txt");
     }
 }
 main()
@@ -262,5 +276,6 @@ main()
     student project;
     project.List();
     return 0;
-}          
-    
+}       
+    	
+    	
