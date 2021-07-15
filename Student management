@@ -1,21 +1,21 @@
 // Student Management system using file handling in c++
-#include <conio.h>
-#include<bits/stdc++.h>
+#include <conio.h>///header file
+#include<bits/stdc++.h>//header file
 using namespace std;
-class student
+class student//class and class name
 {
-private:
-    string stdName, Roll, branch, address, email_id, contact_no;
+private://private data
+    string stdName, Roll, branch, address, email_id, contact_no;//intialising
 
-public:
-    void List();
-    void insert();
+public://public data
+    void List();//member functions
+    void insert();//function declarations
     void display();
     void update();
     void getData();
     void deleted();
 };
-void student::List()
+void student::List()//heridity
 {
 Liststart:
     int option;
@@ -34,11 +34,10 @@ Liststart:
 
     cout << "\t\t\t---------------------------" << endl;
     cout << "\t\t\tChoose :[1/2/3/4/5/6]" << endl;
-    cout << "\t\t\t---------------------------" << endl;
     cout << "Enter Your option: ";
     cin >> option;
 
-    switch (option)
+    switch (option)//switch condition
     {
     case 1:
         do
@@ -68,11 +67,10 @@ Liststart:
     getch();
     goto Liststart;
 }
-void student::insert() // add student details
+void student::insert() // add student details//herachical inheritance//function declaration
 {
     system("cls");
     fstream file;
-    cout << "\n-----------------------------------------------------------------------------------------------------";
     cout << "\n------------------------------------- Add Student Details ---------------------------------------------" << endl;
     
     cout << "\t\t\tEnter Name: ";
@@ -87,19 +85,18 @@ void student::insert() // add student details
     cin >> contact_no;
     cout << "\t\t\tEnter Address: ";
     cin >> address;
-    file.open("studentRecord.txt", ios::app | ios::out);
+    file.open("studentRecord.txt", ios::app | ios::out);//file open
     file << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";
-    file.close();
+    file.close();//file close
 }
 
-void student::display() // display students details
+void student::display() // display students details//function declaration
 {
     system("cls");
     fstream file;
-    int total = 1;
-    cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
+    int total = 1;//inialising the data
     cout << "------------------------------------- Student Record Table --------------------------------------------" << endl;
-    file.open("studentRecord.txt", ios::in);
+    file.open("studentRecord.txt", ios::in);//file open
     if (!file)
     {
         /* code */
@@ -127,7 +124,7 @@ void student::display() // display students details
     }
     file.close();
 }
-void student::update() // update Students Details
+void student::update() // update Students Details//function declaration
 {
     system("cls");
     fstream file, file1;
@@ -137,19 +134,19 @@ void student::update() // update Students Details
     file.open("studentRecord.txt", ios::in);
     if (!file)
     {
-        cout << "\n\t\t\tNo data is stored..";
+        cout << "\n\t\t\tNo data is stored..";//as all files are deleted
     }
     else
     {
         cout << "\nEnter Roll No. of Student which you want to update: ";
         cin >> rollno;
         file1.open("record.txt", ios::app | ios::out);
-        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;
+        file >> stdName >> Roll >> branch >> email_id >> contact_no >> address;//file takes input
         while (!file.eof())
         {
             if (rollno != Roll)
 
-                file1 << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";
+                file1 << " " << stdName << " " << Roll << " " << branch << " " << email_id << " " << contact_no << " " << address << "\n";//file gives output
             else
             {
                 cout << "\n\t\t\tEnter Name: ";
@@ -173,28 +170,26 @@ void student::update() // update Students Details
                 cout << "\n\n\t\t\t Student Roll No. Not Found....";
             }
         }
-        file1.close();
-        file.close();
-        remove("studentRecord.txt");
-        rename("record.txt", "studentRecord.txt");
+        file1.close();//file close
+        file.close();//file1 closse
+        remove("studentRecord.txt");//removing the file
+        rename("record.txt", "studentRecord.txt");//renaming the file
     }
 }
-void student::getData() // getData data of student
+void student::getData() // getData data of student//function declaration
 {
     system("cls");
     fstream file;
     int found = 0;
-    file.open("studentRecord.txt", ios::in);
+    file.open("studentRecord.txt", ios::in);//file open
     if (!file)
     {
-        cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
         cout << "------------------------------------- Student getData Data ------------------------------------------" << endl;
         cout << "\n\t\t\t No Data Is Present...";
     }
     else
     {
         string rollno;
-        cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
         cout << "------------------------------------- Student getData Data ------------------------------------------" << endl;
         cout << "\n Enter Roll No. of Student Which You Want to getData: ";
         cin >> rollno;
@@ -219,7 +214,7 @@ void student::getData() // getData data of student
         file.close();
     }
 }
-void student::deleted()
+void student::deleted()//function declaration
 {
     system("cls");
     fstream file, file1;
