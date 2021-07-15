@@ -1,5 +1,4 @@
 // Student Management system using file handling in c++
-// Sagar Developer
 #include <conio.h>
 #include<bits/stdc++.h>
 using namespace std;
